@@ -14,14 +14,15 @@ exports.createProduct =catchAysncErrors(async (req,res,next)=>{
 
 exports.getAllProducts= catchAysncErrors(async (req,res)=>{
     
-    const resultPerPage=5;
-    const productCount=await Product.countDocuments();
+    const resultPerPage=8;
+    const productsCount=await Product.countDocuments();
     const apiFeature=new ApiFeatures(Product.find(), req.query).search().filter().pagination(resultPerPage);
     const products= await apiFeature.mongoQuery;
 
     res.status(200).json({
         success:true,
-        products
+        products,
+        productsCount
     })
 });
 
